@@ -1,7 +1,7 @@
 pipeline {
      agent any
-
-     stage('Lint Dockerfile') {
+     stages {
+         stage('Lint Dockerfile') {
             steps {
                 script {
                     docker.image('hadolint/hadolint:latest-debian').inside() {
@@ -67,3 +67,4 @@ pipeline {
               }
         }
      }
+}
