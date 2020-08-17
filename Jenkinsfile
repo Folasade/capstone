@@ -3,7 +3,6 @@ pipeline {
      stages {
          stage('Lint JSON') {
             steps {
-                script {
                     try {
                        readJSON file: 'app/devcontainer.json'
                        } catch(e) {
@@ -13,10 +12,8 @@ pipeline {
                 }
             }
          }
-     }
           
-
-     stage('Build Docker Image') {
+         stage('Build Docker Image') {
               steps {
                   sh 'docker build -t capstoneapp-fola .'
               }
@@ -30,7 +27,7 @@ pipeline {
               }
          }
          
-     stage('Deploying') {
+         stage('Deploying') {
               steps{
                   echo 'Deploying to AWS...'
                   withAWS(credentials: 'aws-static', region: 'us-west-2') {
@@ -46,7 +43,7 @@ pipeline {
         }
         
         
-     stage('Checking rollout') {
+        stage('Checking rollout') {
               steps{
                   echo 'Checking rollout...'
                   withAWS(credentials: 'aws-static', region: 'us-west-2') {
@@ -55,7 +52,7 @@ pipeline {
               }
         }
         
-     stage("Cleaning up") {
+        stage("Cleaning up") {
               steps{
                     echo 'Cleaning up...'
                     sh "docker system prune"
