@@ -4,7 +4,7 @@ pipeline {
          stage('Lint JSON') {
             steps {
                     try {
-                       readJSON file: 'app/devcontainer.json'
+                       readJSON file: 'app/*.json'
                        } catch(e) {
                        echo "Caught: ${e} JSON not valid."
                        currentBuild.result = 'FAILURE'
