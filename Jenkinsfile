@@ -3,13 +3,7 @@ pipeline {
      stages {
          stage('Lint JSON') {
             steps {
-                    try {
-                       readJSON file: 'app/*.json'
-                       } catch(e) {
-                       echo "Caught: ${e} JSON not valid."
-                       currentBuild.result = 'FAILURE'
-
-                }
+                    python -c 'import sys,json; json.load(sys.stdin)' < *.json
             }
          }
           
