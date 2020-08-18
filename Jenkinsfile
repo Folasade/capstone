@@ -1,17 +1,6 @@
 pipeline {
      agent any
      stages {
-         stage('Lint JSON') {
-            steps {
-                   try {
-                         readJSON file: 'app/*.json'
-                         } catch(e) {
-                         echo "Caught: ${e} JSON not valid."
-                         currentBuild.result = 'FAILURE'
-                   }
-            }
-}
-          
          stage('Build Docker Image') {
               steps {
                   sh 'docker build -t capstoneapp-fola .'
