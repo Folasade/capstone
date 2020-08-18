@@ -3,9 +3,14 @@ pipeline {
      stages {
          stage('Lint JSON') {
             steps {
-                    python -c 'import sys,json; json.load(sys.stdin)' < *.json
+                   try {
+                         readJSON file: 'app/*.json'
+                         } catch(e) {
+                         echo "Caught: ${e} JSON not valid."
+                         currentBuild.result = 'FAILURE'
+                   }
             }
-         }
+}
           
          stage('Build Docker Image') {
               steps {
